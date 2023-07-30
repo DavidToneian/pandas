@@ -51,6 +51,8 @@ jobs:
 
     - name: Build documentation
       run: |
+        echo python get_backend.py
+        python get_backend.py
         echo which pandoc
         which pandoc
         echo pandoc -v
