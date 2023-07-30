@@ -728,7 +728,11 @@ We use the standard convention for referencing the matplotlib API:
 
 .. ipython:: python
 
+   import matplotlib
    import matplotlib.pyplot as plt
+
+   print(matplotlib.get_backend())
+   print(matplotlib.matplotlib_fname())
 
    plt.close("all")
 
@@ -747,6 +751,7 @@ If running under Jupyter Notebook, the plot will appear on :meth:`~Series.plot`.
 `matplotlib.pyplot.savefig <https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.savefig.html>`__ to write it to a file.
 
 .. ipython:: python
+   :okwarning:
 
    plt.show();
 
