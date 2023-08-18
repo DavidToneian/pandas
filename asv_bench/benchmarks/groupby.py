@@ -329,16 +329,11 @@ class AggFunctions:
             {"value1": "mean", "value2": "var", "value3": "sum"}
         )
 
-    def time_different_numpy_functions(self, df):
-        df.groupby(["key1", "key2"]).agg(
-            {"value1": np.mean, "value2": np.var, "value3": np.sum}
-        )
+    def time_different_str_functions_multicol(self, df):
+        df.groupby(["key1", "key2"]).agg(["sum", "min", "max"])
 
-    def time_different_python_functions_multicol(self, df):
-        df.groupby(["key1", "key2"]).agg([sum, min, max])
-
-    def time_different_python_functions_singlecol(self, df):
-        df.groupby("key1")[["value1", "value2", "value3"]].agg([sum, min, max])
+    def time_different_str_functions_singlecol(self, df):
+        df.groupby("key1").agg({"value1": "mean", "value2": "var", "value3": "sum"})
 
 
 class GroupStrings:
@@ -381,8 +376,8 @@ class MultiColumn:
     def time_col_select_lambda_sum(self, df):
         df.groupby(["key1", "key2"])["data1"].agg(lambda x: x.values.sum())
 
-    def time_col_select_numpy_sum(self, df):
-        df.groupby(["key1", "key2"])["data1"].agg(np.sum)
+    def time_col_select_str_sum(self, df):
+        df.groupby(["key1", "key2"])["data1"].agg("sum")
 
 
 class Size:
@@ -591,12 +586,8 @@ class GroupByCythonAgg:
         [
             "sum",
             "prod",
-            # TODO: uncomment min/max
-            # Currently, min/max implemented very inefficiently
-            # because it re-uses the Window min/max kernel
-            # so it will time out ASVs
-            # "min",
-            # "max",
+            "min",
+            "max",
             "mean",
             "median",
             "var",
@@ -894,8 +885,8 @@ class Transform:
     def time_transform_lambda_max(self):
         self.df.groupby(level="lev1").transform(lambda x: max(x))
 
-    def time_transform_ufunc_max(self):
-        self.df.groupby(level="lev1").transform(np.max)
+    def time_transform_str_max(self):
+        self.df.groupby(level="lev1").transform("max")
 
     def time_transform_lambda_max_tall(self):
         self.df_tall.groupby(level=0).transform(lambda x: np.max(x, axis=0))
@@ -926,7 +917,7 @@ class TransformBools:
         self.df = DataFrame({"signal": np.random.rand(N)})
 
     def time_transform_mean(self):
-        self.df["signal"].groupby(self.g).transform(np.mean)
+        self.df["signal"].groupby(self.g).transform("mean")
 
 
 class TransformNaN:
