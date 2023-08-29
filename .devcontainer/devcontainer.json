@@ -1,0 +1,64 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or the definition README at
+// https://github.com/microsoft/vscode-dev-containers/tree/master/containers/python-3-miniconda
+{
+    "name": "pandas",
+    "containerUser": "pandas-dev",
+    "context": "..",
+    "dockerFile": "../Dockerfile",
+    "postCreateCommand": "./.devcontainer/postCreateCommand.sh",
+    // Use `customizations/vscode/settings` to set *default* container specific
+    // settings.json values on container create. You can edit these settings
+    // after create using File > Preferences > Settings > Remote.
+    "customizations": {
+        "vscode": {
+            // Add the IDs of extensions you want installed when the
+            // container is created in the array below.
+            "extensions": [
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "ms-python.flake8",
+                "ms-python.mypy-type-checker",
+                "ms-python.pylint",
+                "ms-vscode.cpptools",
+                "ms-azuretools.vscode-docker",
+                "GitHub.vscode-github-actions"
+            ],
+            "settings": {
+                // Editor configuration:
+                "editor.detectIndentation": false,
+                "editor.formatOnSave": true,
+                "editor.insertSpaces": true,
+                "editor.rulers": [
+                    88
+                ],
+                "editor.tabSize": 4,
+                "files.insertFinalNewline": true,
+                // Python tooling:
+                "black-formatter.importStrategy": "fromEnvironment",
+                "flake8.args": [
+                    "--max-line-length=88"
+                ],
+                "flake8.importStrategy": "fromEnvironment",
+                "mypy-type-checker.importStrategy": "fromEnvironment",
+                "mypy-type-checker.showNotifications": "always",
+                "pylint.args": [
+                    "--load-plugins=pylint.extensions.redefined_loop_name"
+                ],
+                "pylint.importStrategy": "fromEnvironment",
+                "[python]": {
+                    "editor.defaultFormatter": "ms-python.black-formatter"
+                },
+                "python.analysis.typeCheckingMode": "basic",
+                "python.linting.mypyEnabled": true, // Deprecated, but seemingly required to get VSCode to display mypy diagnostics
+                "python.testing.pytestArgs": [
+                    "pandas"
+                ],
+                "python.testing.pytestEnabled": true,
+                // Environment and terminal configuration:
+                "python.defaultInterpreterPath": "/home/pandas-dev/micromamba/envs/test/bin/python",
+                "python.terminal.activateEnvironment": false,
+                "terminal.integrated.defaultProfile.linux": "bash"
+            }
+        }
+    }
+}
