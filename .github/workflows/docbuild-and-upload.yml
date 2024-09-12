@@ -50,7 +50,16 @@ jobs:
       run: python web/pandas_web.py web/pandas --target-path=web/build
 
     - name: Build documentation
-      run: doc/make.py --warnings-are-errors
+      run: |
+        echo python get_backend.py
+        python get_backend.py
+        echo which pandoc
+        which pandoc
+        echo pandoc -v
+        pandoc -v
+        echo pip list
+        pip list
+        doc/make.py --warnings-are-errors --num-jobs=1
 
     - name: Build documentation zip
       run: doc/make.py zip_html

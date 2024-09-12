@@ -694,7 +694,11 @@ We use the standard convention for referencing the matplotlib API:
 
 .. ipython:: python
 
+   import matplotlib
    import matplotlib.pyplot as plt
+
+   print(matplotlib.get_backend())
+   print(matplotlib.matplotlib_fname())
 
    plt.close("all")
 
